@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+
+  "name": "Get it done.",
+  "description": "This extension gets shit done.",
+  "version": "1.0",
+
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ],
+
+  "content_scripts": [{
+        "matches": ["http://*/*", "https://*/*"],
+        "js": ["content.js"]
+    }],
+
+  "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
