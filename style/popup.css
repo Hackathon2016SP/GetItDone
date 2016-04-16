@@ -23,7 +23,11 @@ body{
   text-align: center;
 }
 
-#dropdown{
-  text-align: center;
-  margin-bottom: 10px;
+#dropdown {
+    text-align: center;
+    margin-bottom: 10px;
+}
 
+.margin20 {
+    margin: 20px;
+}
