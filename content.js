@@ -21,7 +21,7 @@ function poop(document){
   var imgURL = chrome.extension.getURL("poop.png");
   setInterval(function(){replace_with_poop(imgURL)}, 2000);
   $("p, ls, span, h1, h2, h3, h4").each(function( index ) {
-    console.log("poop");
+    //console.log("poop");
     $(this).text(insert_poop_to_text($(this).text(),0.05));
   });
 }
@@ -30,27 +30,42 @@ $(document).ready(function () {
   sumTime()
 });
 
-var blacklist = ["facebook","twitter","tumblr","youtube","messenger"];
+var blacklist = ["facebook","twitter","tumblr","youtube","messenger","reddit"];
 
 function sumTime(){
   chrome.storage.local.get(null, function (object) {
-    var totalTime = 10;
+    var totalTime = 0;
+    var data = {};
     for (var url in object) {
-      for (var name in blacklist){
-        if (url.includes(name)){
-
-          //kent's code
-
+      for (var i in blacklist){
+        if (url.includes(blacklist[i])){
+          // console.log(blacklist[i]);
+          // console.log(object);
+          // console.log(url);
+          // console.log(object[url]);
+          var data_for_url = JSON.parse(object[url]);
+          var visitTimeTotal = 0;
+          for (var visitTime in data_for_url) {
+              var visitLength = data_for_url[visitTime];
+              var date = new Date(parseInt(visitTime));
+              var currentDate = new Date();
+              if (date > new Date(currentDate.getTime() - 1440 * 60 * 1000)) {
+                  visitTimeTotal = visitTimeTotal + visitLength;
+              }
+          }
+          totalTime+=visitTimeTotal;
+        //  console.log(totalTime);
         }
       }
     }
 
     chrome.storage.local.get("popupTimer", function(result){
+      //console.log(result);
       if (result["popupTimer"] == undefined){
         return;
       } else{
-        if (totalTime > result["popupTimer"]){
-          console.log("pooop!");
+        if (totalTime > result["popupTimer"] * 60){
+        //  console.log("pooop!");
           poop(document);
         }
       }
