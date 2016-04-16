@@ -21,7 +21,7 @@ function poop(document){
   var imgURL = chrome.extension.getURL("poop.png");
   setInterval(function(){replace_with_poop(imgURL)}, 2000);
   $("p, ls, span, h1, h2, h3, h4").each(function( index ) {
-    console.log("poop");
+    //console.log("poop");
     $(this).text(insert_poop_to_text($(this).text(),0.05));
   });
 }
@@ -39,32 +39,33 @@ function sumTime(){
     for (var url in object) {
       for (var i in blacklist){
         if (url.includes(blacklist[i])){
-          console.log(blacklist[i]);
-          console.log(object);
-          console.log(url);
-          console.log(object[url]);
+          // console.log(blacklist[i]);
+          // console.log(object);
+          // console.log(url);
+          // console.log(object[url]);
           var data_for_url = JSON.parse(object[url]);
           var visitTimeTotal = 0;
           for (var visitTime in data_for_url) {
               var visitLength = data_for_url[visitTime];
               var date = new Date(parseInt(visitTime));
               var currentDate = new Date();
-              if (date > new Date(currentDate.getTime() - 720 * 60 * 1000)) {
+              if (date > new Date(currentDate.getTime() - 1440 * 60 * 1000)) {
                   visitTimeTotal = visitTimeTotal + visitLength;
               }
           }
           totalTime+=visitTimeTotal;
-          console.log(totalTime);
+        //  console.log(totalTime);
         }
       }
     }
 
     chrome.storage.local.get("popupTimer", function(result){
+      //console.log(result);
       if (result["popupTimer"] == undefined){
         return;
       } else{
-        if (totalTime > result["popupTimer"]){
-          console.log("pooop!");
+        if (totalTime > result["popupTimer"] * 60){
+        //  console.log("pooop!");
           poop(document);
         }
       }
