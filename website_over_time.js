@@ -4,6 +4,30 @@ function values(o) {
         return o[k]
     })
 }
+
+function QueryString () {
+  // This function is anonymous, is executed immediately and
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  }
+    return query_string;
+}
+var qs = QueryString();
+var website = qs.website;
+var span = qs.span;
+
 // function get_previous_date(date){
 //     date = date - 1000*60*60*24;
 //     return date;
@@ -19,30 +43,30 @@ function values(o) {
 
 
 var test_data = {};
-chrome.storage.local.get(null, function (object) {
-    var dateObject = new Date(0);
-    for (var url in object) {
-        test_data[url] = {};
-        var data_for_url = JSON.parse(object[url]);
-        var oldTime = 0;
-        var visitTimeForDate = 0;
-        for (var visitTime in data_for_url) {
-            var visitLength = data_for_url[visitTime];
-            var date = new Date(parseInt(visitTime));
-            var time = String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
-            // Exceptional case for first old date object
-            if (oldTime == 0) {
-                oldTime = time;
-            }
-            if (time == oldTime) {
-                visitTimeForDate = visitTimeForDate + visitLength;
-            } else {
-                test_data[url][oldTime] = visitTimeForDate;
-                visitTimeForDate = 0;
-            }
-            oldTime = time;
-        }
-    }
+// chrome.storage.local.get(null, function (object) {
+//     var dateObject = new Date(0);
+//     for (var url in object) {
+//         test_data[url] = {};
+//         var data_for_url = JSON.parse(object[url]);
+//         var oldTime = 0;
+//         var visitTimeForDate = 0;
+//         for (var visitTime in data_for_url) {
+//             var visitLength = data_for_url[visitTime];
+//             var date = new Date(parseInt(visitTime));
+//             var time = String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
+//             // Exceptional case for first old date object
+//             if (oldTime == 0) {
+//                 oldTime = time;
+//             }
+//             if (time == oldTime) {
+//                 visitTimeForDate = visitTimeForDate + visitLength;
+//             } else {
+//                 test_data[url][oldTime] = visitTimeForDate;
+//                 visitTimeForDate = 0;
+//             }
+//             oldTime = time;
+//         }
+//     }
     function website_over_month(data, elementID) {
         var ctx = document.getElementById(elementID).getContext("2d");
         var X = Object.keys(data);
@@ -80,8 +104,8 @@ chrome.storage.local.get(null, function (object) {
 
     var charts = $('.time-chart');
     for (var i in charts) {
-        var chart = charts[i];
-        website_over_month(test_data[chart.id], chart.id);
+       if (i < charts.length - 1){
+         var chart = charts[i];
+         website_over_month(test_data[chart.id], chart.id);
+       }
     }
-});
-
