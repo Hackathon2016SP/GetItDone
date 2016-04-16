@@ -1,11 +1,14 @@
 // {
 //     "youtube":{
-//             "4":{
-//                 "1": 80
-//             }
-//         }
+//             "Date": Time
+//     }
 // }
 // dd/mm/yyyy
+
+var initialTime = 0;
+var visiting = false;
+var oldURL = "";
+var date = new Date();
 
 /**
  * Get the current URL.
@@ -45,6 +48,28 @@ function getCurrentTabUrl(callback) {
 
 //When tab is activated, will start listening
 chrome.tabs.onActivated.addListener(function(){
+
+  if(visiting){
+    var afterTime = date.getTime();
+    var difference = (afterTime-initialTime)/1000;
+    var afterString = afterTime.toString();
+    var data = {
+      oldURL : {afterString : difference}
+    };
+    chrome.storage.local.set(data,function(){console.log("stored!")});
+    visiting = false;
+  }
+
+  //initial visit of website will start the timer
+  initialTime = date.getTime();
+  visiting = true;
+
+  getCurrentTabUrl(function(x){
+    oldURL = x;
+  });  
+
+
+  console.log(initialTime);
   printStatus();
 });
 
@@ -52,6 +77,5 @@ chrome.tabs.onActivated.addListener(function(){
 function printStatus() {
   getCurrentTabUrl(function(x){
     console.log(x);
-  });
-  
+  });  
 }
