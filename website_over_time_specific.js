@@ -70,10 +70,8 @@ chrome.storage.local.get(null, function (object) {
     function website_over_month(data, elementID) {
         var ctx = document.getElementById(elementID).getContext("2d");
         var X = Object.keys(data);
-        //for (var i in X) {
-        //    X[i] = convert_to_label(X[i]);
-        //}
         var Y = values(data);
+
         var data = {
             labels: X,
             datasets: [
