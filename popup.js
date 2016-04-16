@@ -1,7 +1,7 @@
 $('#settings').submit(function(e){
   e.preventDefault();
   
-
+  console.log(duration)
   var data = {};
   var duration = $("#duration").val();
   data["popupTimer"] = duration/1; //used to make duration an integer
