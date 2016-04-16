@@ -31,3 +31,20 @@ body{
 .margin20 {
     margin: 20px;
 }
+
+#remaining{
+  display: inline;
+}
+
+#editTime{
+  display:none;
+}
+
+#editButton{
+  display:inline;
+}
+
+#timeRemain{
+  /*display:inline;*/
+  text-align:center;
+}

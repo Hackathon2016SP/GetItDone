@@ -4,12 +4,17 @@
 <body>
 
     <h1 id="title">Get It Done!</h1>
-    <form id="settings">
-  	Unproductive time allowed today (minutes):
-  	<input type="number" id="duration"></input>
-  	<button type="submit" class = "btn btn-secondary">Set</button>
-    </form>
-    Time Left: <div id="remaining"></div>
+    <div id="editTime">
+      <form id="settings">
+    	Unproductive time allowed today (minutes):
+    	<input type="number" id="duration"></input>
+    	<button type="submit" class = "btn btn-secondary">Set</button>
+      </form>
+    </div>
+    <div id="timeRemain">
+      <div id="remaining"></div>
+      <div id="editButton"><button type="button" class = "btn btn-secondary">Edit</button></div>
+    </div>
   <script src="libs/jquery.js"></script>
   <script src="popup.js"></script>
   <select id='span-select'>
