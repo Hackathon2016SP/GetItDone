@@ -1,28 +1,27 @@
-<!DOCTYPE html>
+<html>
 <link rel="stylesheet" type="text/css" href="style/popup.css">
 <link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
 <body>
-
-    <h1 id="title">Get It Done!</h1>
-    <form id="settings">
-  	Unproductive time allowed today (minutes):
-  	<input type="number" id="duration"></input>
-  	<button type="submit" class = "btn btn-secondary">Set</button>
-    </form>
-    Time Left: <div id="remaining"></div>
-  <script src="libs/jquery.js"></script>
-  <script src="popup.js"></script>
-  <select id='span-select'>
+<p id="title">Get It Done!&nbsp;</p>
+<form id="settings">
+    Unproductive time allowed today (minutes):
+    <input type="number" id="duration"></input>
+    <button type="submit" class="btn btn-secondary">Set</button>
+</form>
+Time Left:
+<div id="remaining"></div>
+<script src="libs/jquery.js"></script>
+<script src="popup.js"></script>
+<select id='span-select'>
     <option value="10">Last 10 Minutes</option>
     <option value="60">Last Hour</option>
     <option value="1440">Last Day</option>
     <option value="10080">Last Week</option>
     <option value="40320">Last Month</option>
-  </select>
-  </div>
+</select>
+
 <div id="chart-div" class="col-md-5">
-  <canvas id="website-chart"></canvas>
-</div>
+    <canvas id="website-chart"></canvas>
 </div>
 <script src="libs/Chart.min.js"></script>
 <script src="website_percentage.js"></script>
