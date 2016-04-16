@@ -26,16 +26,6 @@ function QueryString() {
 var qs = QueryString();
 var website = qs.website;
 var span = qs.span;
-var span_in_minutes = 0;
-if (span == "hour") {
-    span_in_minutes = 60;
-} else if (span == "day") {
-    span_in_minutes = 1440;
-} else if (span == "week") {
-    span_in_minutes = 10800;
-} else {
-    span_in_minutes = 43200;
-}
 
 var test_data = {};
 chrome.storage.local.get(null, function (object) {
@@ -52,7 +42,7 @@ chrome.storage.local.get(null, function (object) {
             var visitLength = data_for_url[visitTime];
             var date = new Date(parseInt(visitTime));
             var currentDate = new Date();
-            if (time <= new Date(currentDate.getTime() - span_in_minutes * 60 * 1000)) {
+            if (date <= new Date(currentDate.getTime() - span * 60 * 1000)) {
                 continue;
             }
             var time = String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
