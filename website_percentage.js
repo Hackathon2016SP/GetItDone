@@ -24,7 +24,8 @@ function draw_chart_for_minutes_before(minutes_before) {
 
         function website_percentage(data, elementID) {
             // console.log(document.getElementById(elementID));
-            $('#'+elementID).replaceWith('<canvas id="website-chart" width="400" height="400"></canvas>')
+            $('#'+elementID).replaceWith('<canvas id="website-chart" width="400" height="400"></canvas>');
+            $('.pie-legend').remove();
             var ctx = document.getElementById(elementID).getContext("2d");
             var X = Object.keys(data);
             var Y = values(data);
@@ -43,7 +44,7 @@ function draw_chart_for_minutes_before(minutes_before) {
                 /* this is where we check if event has keys which means is not empty space */
                 if (Object.keys(activePoints).length > 0) {
                     var label = activePoints[0]["label"];
-                    var url = "website_over_time_specific.html?" + "span=" + elementID + "&website=" + label;
+                    var url = "website_over_time_specific.html?" + "span=" + minutes_before + "&website=" + label;
                 }
                 chrome.tabs.create({url: url});
             };
@@ -53,7 +54,7 @@ function draw_chart_for_minutes_before(minutes_before) {
             website_percentage(data, "website-chart");
     });
 }
-var minutes = 60;
+var minutes = 1;
 draw_chart_for_minutes_before(minutes);
 $('#span-select').on('change', function() {
   minutes = parseInt(this.value);
