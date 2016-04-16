@@ -1,32 +1,42 @@
 <html>
-<link rel="stylesheet" type="text/css" href="style/popup.css">
-<link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
+<head>
+    <link rel="stylesheet" type="text/css" href="style/popup.css">
+    <link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="libs/bootstrap-combobox.css"/>
+    <script src="libs/jquery.js"></script>
+</head>
 <body>
-    <p id="title">Get It Done!&nbsp;</p>
-    <div id="editTime">
-      <form id="settings">
-    	Unproductive time allowed today (minutes):
-    	<input type="number" id="duration"></input>
-    	<button type="submit" class = "btn btn-secondary">Set</button>
-      </form>
+<p id="title">Get It Done!&nbsp;</p>
+
+<div id="editTime">
+    <form id="settings">
+        Unproductive time allowed today (minutes):
+        <input type="number" id="duration"></input>
+        <button type="submit" class="btn btn-secondary">Set</button>
+    </form>
+</div>
+<div id="timeRemain">
+    <div id="remaining"></div>
+    <div id="editButton">
+        <button type="button" class="btn btn-secondary">Edit</button>
     </div>
-    <div id="timeRemain">
-      <div id="remaining"></div>
-      <div id="editButton"><button type="button" class = "btn btn-secondary">Edit</button></div>
-    </div>
-  <script src="libs/jquery.js"></script>
-  <script src="popup.js"></script>
-  <select id='span-select'>
+</div>
+<script src="popup.js"></script>
+<select class="combobox form-control" id='span-select'>
     <option value="10">Last 10 Minutes</option>
     <option value="60">Last Hour</option>
     <option value="1440">Last Day</option>
     <option value="10080">Last Week</option>
     <option value="40320">Last Month</option>
-  </select>
+</select>
+
 <div id="chart-div" class="col-md-5">
     <canvas id="website-chart"></canvas>
 </div>
 <script src="libs/Chart.min.js"></script>
 <script src="website_percentage.js"></script>
+<script src="website_over_time_specific.js"></script>
+<script src="libs/bootstrap-combobox.js"></script>
+<script src="combobox.js"></script>
 </body>
 </html>
