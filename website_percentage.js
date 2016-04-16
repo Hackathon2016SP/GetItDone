@@ -20,15 +20,15 @@ function sum( obj ) {
 
 function trim_data(data){
   var value_sum = sum(data);
-  data['others'] = 0.0;
+  data['Others'] = 0.0;
   var keys = Object.keys(data);
   for (var i in keys){
     var key = keys[i];
-    if (key != 'others'){
+    if (key != 'Others'){
       var value = data[key];
       if (value/value_sum < 0.01){
         delete data[key];
-        data['others'] = data['others'] + value;
+        data['Others'] = data['Others'] + value;
       }
     }
   }
