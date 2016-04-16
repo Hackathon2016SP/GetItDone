@@ -47,10 +47,10 @@ function draw_chart_for_minutes_before(minutes_before) {
                 var date = new Date(parseInt(visitTime));
                 var currentDate = new Date();
                 if (date > new Date(currentDate.getTime() - minutes_before * 60 * 1000)) {
-                    visitTimeTotal = visitTimeTotal + truncate(visitLength/60);
+                    visitTimeTotal = visitTimeTotal + visitLength;
                 }
             }
-            data[url] = visitTimeTotal;
+            data[url] = truncate(visitTimeTotal/60);
         }
 
         function website_percentage(data, elementID) {
