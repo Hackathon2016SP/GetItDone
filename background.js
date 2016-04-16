@@ -1,7 +1,6 @@
 var initialTime = 0;
 var visiting = false;
 var oldURL = "";
-var date = new Date();
 
 /**
  * Get the current URL.
@@ -53,7 +52,9 @@ chrome.tabs.onActivated.addListener(function(){
     console.log(difference);
 
     var afterString = afterTime.toString();
-
+    // var data = {
+    //   oldURL : {afterString : difference}
+    // };
     var stringified = {};
     stringified[afterString] = difference;
     var data = {};
@@ -67,6 +68,7 @@ chrome.tabs.onActivated.addListener(function(){
   }
 
   //initial visit of website will start the timer
+  var date = new Date();
   initialTime = date.getTime();
   visiting = true;
 
