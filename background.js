@@ -54,7 +54,8 @@ function getCurrentTabUrl(callback) {
 function storeData() {
 	console.log("Starting Store call")
     getCurrentTabUrl(function (url) {
-        if (visiting) {
+        if (visiting && !(/chrome.*/.test(oldURL))) {
+			console.log(!(/chrome.*/.test(oldURL)))
             var afterDate = new Date();
             var afterTime = afterDate.getTime();
             var difference = (afterTime - initialTime) / 1000;
