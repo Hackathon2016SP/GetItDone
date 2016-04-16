@@ -12,3 +12,10 @@ body{
 .pie-legend{
   list-style-type: none;
 }
+
+#duration {
+	text-align: center;
+}
+#settings {
+	text-align: center;
+}
