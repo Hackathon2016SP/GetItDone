@@ -50,12 +50,33 @@ chrome.tabs.onActivated.addListener(function () {
             stringified[afterString] = difference;
             var data = {};
             data[oldURL] = JSON.stringify(stringified);
-            chrome.storage.local.set(data, function () {
-                chrome.storage.local.get(oldURL, function (object) {
-                    console.log(object);
-                    oldURL = url;
-                })
-            });
+            chrome.storage.local.get(oldURL, function(object) {
+                if(object == undefined) {
+                    chrome.storage.local.set(data, function () {
+                        chrome.storage.local.get(oldURL, function (object) {
+                            console.log(object);
+                            oldURL = url;
+                        })
+                    });
+                }
+                else {
+                    var found = JSON.parse(object[oldURL]);
+                    found[afterString] = difference;
+                    var data = {};
+                    data[oldURL] = JSON.stringify(found);
+                    chrome.storage.local.set(data, function () {
+                        chrome.storage.local.get(oldURL, function (object) {
+                            console.log(object);
+                            oldURL = url;
+                        })
+                    });
+
+                }
+
+
+
+            })
+
         } else {
             oldURL = url; // Only called first time
             console.log(oldURL);
