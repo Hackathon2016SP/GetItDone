@@ -16,12 +16,15 @@ function insert_poop_to_text(text, density){
   }
   return text;
 }
-
+function poop(document){
+  document.title = 'POOP';
+  var imgURL = chrome.extension.getURL("poop.png");
+  setInterval(function(){replace_with_poop(imgURL)}, 2000);
+  $("p, ls, span, h1, h2, h3, h4").each(function( index ) {
+    console.log("poop");
+    $(this).text(insert_poop_to_text($(this).text(),0.05));
+  });
+}
 $(document).ready(function () {
-    var imgURL = chrome.extension.getURL("poop.png");
-    setInterval(function(){replace_with_poop(imgURL)}, 2000);
-    $("p, ls, span, h1, h2, h3, h4").each(function( index ) {
-      console.log("poop");
-      $(this).text(insert_poop_to_text($(this).text(),0.05));
-    });
+  poop(document);
 });
