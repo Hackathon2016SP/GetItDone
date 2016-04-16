@@ -4,10 +4,46 @@ function values(o) {
     })
 }
 
+function QueryString() {
+    // This function is anonymous, is executed immediately and
+    // the return value is assigned to QueryString!
+    var query_string = {};
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (typeof query_string[pair[0]] === "undefined") {
+            query_string[pair[0]] = decodeURIComponent(pair[1]);
+        } else if (typeof query_string[pair[0]] === "string") {
+            var arr = [query_string[pair[0]], decodeURIComponent(pair[1])];
+            query_string[pair[0]] = arr;
+        } else {
+            query_string[pair[0]].push(decodeURIComponent(pair[1]));
+        }
+    }
+    return query_string;
+}
+var qs = QueryString();
+var website = qs.website;
+var span = qs.span;
+var span_in_minutes = 0;
+if (span == "hour") {
+    span_in_minutes = 60;
+} else if (span == "day") {
+    span_in_minutes = 1440;
+} else if (span == "week") {
+    span_in_minutes = 10800;
+} else {
+    span_in_minutes = 43200;
+}
+
 var test_data = {};
 chrome.storage.local.get(null, function (object) {
     var dateObject = new Date(0);
     for (var url in object) {
+        if (url != website) {
+            continue;
+        }
         test_data[url] = {};
         var data_for_url = JSON.parse(object[url]);
         var oldTime = 0;
@@ -15,6 +51,10 @@ chrome.storage.local.get(null, function (object) {
         for (var visitTime in data_for_url) {
             var visitLength = data_for_url[visitTime];
             var date = new Date(parseInt(visitTime));
+            var currentDate = new Date();
+            if (time <= new Date(currentDate.getTime() - span_in_minutes * 60 * 1000)) {
+                continue;
+            }
             var time = String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
             // Exceptional case for first old date object
             if (oldTime == 0) {
@@ -58,7 +98,6 @@ chrome.storage.local.get(null, function (object) {
         return str;
     }
 
-    website = "https://www.facebook.com/";
     $('#charts').append(create_canvas(website));
     website_over_month(test_data[website], website);
 });
