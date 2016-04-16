@@ -1,4 +1,14 @@
 body{
-   width:500px;
+   width:550px;
    height:500px;
+}
+#title {
+	text-align: center;
+}
+#chart-div{
+  text-align: center; 
+}
+
+.pie-legend{
+  list-style-type: none;
 }

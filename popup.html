@@ -2,9 +2,10 @@
 <link rel="stylesheet" type="text/css" href="style/popup.css">
 <link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
 <body>
-    <h1>Get It Done!</h1>
+	
+    <h1 id="title">Get It Done!</h1>
     <form id="settings">
-  	Time before popup (minutes):
+  	Unproductive time allowed today (minutes):
   	<input type="number" id="duration"></input>
   	<button type="button" class = "btn btn-secondary">Submit</button>
     </form>
@@ -19,7 +20,7 @@
     <option value="40320">Last Month</option>
   </select>
 <div id="chart-div" class="col-md-5">
-  <canvas id="website-chart" width="400" height="400"></canvas>
+  <canvas id="website-chart" width="550" height="500"></canvas>
 </div>
 </div>
 <script src="libs/Chart.min.js"></script>
