@@ -51,9 +51,7 @@ chrome.tabs.onActivated.addListener(function () {
 				stringified[afterString] = difference;
 				var data = {};
 				data[oldURL] = JSON.stringify(stringified);
-				console.log(data);
 				chrome.storage.local.get(oldURL, function(object) {
-					console.log(data);
 					if(object == undefined || object[oldURL] == undefined) {
 						console.log(data);
 						chrome.storage.local.set(data, function () {
@@ -63,8 +61,6 @@ chrome.tabs.onActivated.addListener(function () {
 							})
 						});
 					} else {
-						console.log(object);
-						console.log(object[oldURL]);
 						if (object[oldURL] != undefined) {
 							var found = JSON.parse(object[oldURL]);
 							found[afterString] = difference;
@@ -72,7 +68,6 @@ chrome.tabs.onActivated.addListener(function () {
 							newData[oldURL] = JSON.stringify(found);
 							chrome.storage.local.set(newData, function () {
 								chrome.storage.local.get(oldURL, function (object) {
-									console.log(object);
 									oldURL = url;
 								})
 							});
