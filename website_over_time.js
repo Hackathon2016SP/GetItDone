@@ -1,9 +1,9 @@
-//helper functions
+// //helper functions
 function values(o) { return Object.keys(o).map(function(k){return o[k]}) }
-function get_previous_date(date){
-    date = date - 1000*60*60*24;
-    return date;
-}
+// function get_previous_date(date){
+//     date = date - 1000*60*60*24;
+//     return date;
+// }
 function convert_to_label(d){
   var ls = d.split('/');
   if (ls[1] == 1) {
@@ -30,13 +30,13 @@ var test_data = {
       }
   }
 
-function website_over_month(website_name, elementID){
+function website_over_month(data, elementID){
   var ctx = document.getElementById(elementID).getContext("2d");
-  var X = Object.keys(test_data[website_name])
+  var X = Object.keys(data);
   for (var i in X){
     X[i] = convert_to_label(X[i]);
   }
-  var Y = values(test_data[website_name])
+  var Y = values(data);
   var data = {
       labels: X,
       datasets: [
@@ -57,5 +57,5 @@ function website_over_month(website_name, elementID){
 var charts = $('.time-chart');
 for (var i in charts){
   var chart = charts[i];
-  website_over_month(chart.id, chart.id);
+  website_over_month(test_data[chart.id], chart.id);
 }

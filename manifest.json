@@ -14,7 +14,8 @@
     "js": ["libs/jquery.js", "content.js"]
   }],
   "browser_action": {
-    "default_icon": "poop.png"
+    "default_icon": "poop.png",
+    "default_popup": "popup.html"
   },
   "background": {
     "scripts": ["background.js"],
