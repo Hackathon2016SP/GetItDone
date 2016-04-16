@@ -2,6 +2,13 @@ var initialTime = 0;
 var visiting = false;
 var oldURL = "";
 
+function getDomain(url) {
+	if (/http.*\/\/.*?\//.test(url)){
+		return (/http.*\/\/.*?\//.exec(url)[0]); 
+	}
+	else {return url}
+}
+
 /**
  * Get the current URL.
  *
@@ -33,8 +40,13 @@ function getCurrentTabUrl(callback) {
         // from |queryInfo|), then the "tabs" permission is required to see their
         // "url" properties.
         console.assert(typeof url == 'string', 'tab.url should be a string');
-
-        callback(url);
+		
+		console.log (url);
+		//Transform url to domain
+		var domain = getDomain(url);
+		
+		console.log(domain);
+        callback(domain);
     });
 }
 

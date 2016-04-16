@@ -25,6 +25,7 @@ function poop(document){
     $(this).text(insert_poop_to_text($(this).text(),0.05));
   });
 }
-$(document).ready(function () {
-  // poop(document);
-});
+
+// $(document).ready(function () {
+//   poop(document);
+// });
