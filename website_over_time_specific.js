@@ -45,7 +45,12 @@ chrome.storage.local.get(null, function (object) {
             if (date <= new Date(currentDate.getTime() - span * 60 * 1000)) {
                 continue;
             }
-            var time = String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
+            var time = "";
+            if (span > 2000) {
+                time = String(date.getUTCMonth()) + "/" + String(date.getUTCDay());
+            } else {
+                time = String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
+            }
             // Exceptional case for first old date object
             if (oldTime == 0) {
                 oldTime = time;
@@ -57,6 +62,9 @@ chrome.storage.local.get(null, function (object) {
                 visitTimeForDate = 0;
             }
             oldTime = time;
+        }
+        if (visitTimeForDate != 0) {
+            test_data[url][oldTime] = visitTimeForDate;
         }
     }
     function website_over_month(data, elementID) {
