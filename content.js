@@ -25,7 +25,36 @@ function poop(document){
     $(this).text(insert_poop_to_text($(this).text(),0.05));
   });
 }
+$(document).ready(function () {
+  // poop(document);
+  sumTime()
+});
 
-// $(document).ready(function () {
-//   poop(document);
-// });
+var blacklist = ["facebook","twitter","tumblr","youtube","messenger"];
+
+function sumTime(){
+  chrome.storage.local.get(null, function (object) {
+    var totalTime = 10;
+    for (var url in object) {
+      for (var name in blacklist){
+        if (url.includes(name)){
+
+          //kent's code
+
+        }
+      }
+    }
+
+    chrome.storage.local.get("popupTimer", function(result){
+      if (result["popupTimer"] == undefined){
+        return;
+      } else{
+        if (totalTime > result["popupTimer"]){
+          console.log("pooop!");
+          poop(document);
+        }
+      }
+    })
+
+  });
+}
