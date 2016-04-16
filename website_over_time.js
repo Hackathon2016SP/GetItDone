@@ -54,6 +54,15 @@ function website_over_month(data, elementID){
   var myLineChart = new Chart(ctx).Line(data, options);
 }
 
+function create_canvas(website){
+  var str = '<div class="chart-div col-md-5"><h1>'+website+'</h1><canvas class="time-chart" id="'+website+'" width="400" height="400"></canvas></div>'
+}
+var websites = Object.keys(test_data)
+for(var i in websites){
+  var website = websites[i];
+  $('#charts').append(create_canvas(website));
+}
+
 var charts = $('.time-chart');
 for (var i in charts){
   var chart = charts[i];
