@@ -3,7 +3,10 @@ var visiting = false;
 var oldURL = "";
 
 function getDomain(url) {
-	return (/http.*\/\/.*?\//.exec(url)[0]);	
+	if (/http.*\/\/.*?\//.test(url)){
+		return (/http.*\/\/.*?\//.exec(url)[0]); 
+	}
+	else {return url}
 }
 
 /**
@@ -38,6 +41,7 @@ function getCurrentTabUrl(callback) {
         // "url" properties.
         console.assert(typeof url == 'string', 'tab.url should be a string');
 		
+		console.log (url);
 		//Transform url to domain
 		var domain = getDomain(url);
 		

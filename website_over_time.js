@@ -4,6 +4,30 @@ function values(o) {
         return o[k]
     })
 }
+
+function QueryString () {
+  // This function is anonymous, is executed immediately and
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  }
+    return query_string;
+}
+var qs = QueryString();
+var website = qs.website;
+var span = qs.span;
+
 // function get_previous_date(date){
 //     date = date - 1000*60*60*24;
 //     return date;
@@ -72,16 +96,7 @@ chrome.storage.local.get(null, function (object) {
         return str;
     }
 
-    var websites = Object.keys(test_data)
-    for (var i in websites) {
-        var website = websites[i];
-        $('#charts').append(create_canvas(website));
-    }
-
-    var charts = $('.time-chart');
-    for (var i in charts) {
-        var chart = charts[i];
-        website_over_month(test_data[chart.id], chart.id);
-    }
-});
-
+    website = "https://www.facebook.com/";
+    $('#charts').append(create_canvas(website));
+    website_over_month(test_data[website], website);
+  })
