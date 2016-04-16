@@ -2,15 +2,26 @@
 <link rel="stylesheet" type="text/css" href="style/popup.css">
 <link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
 <body>
-  <h1>Get It Done!</h1>
-  <a href="website_over_time.html" target='_blank' >Website over time</a>
-  <a href="website_percentage.html" target='_blank' >Website Percentage</a>
-  <form id="settings">
-	Time before popup (minutes):
-	<input type="number" id="duration"></input>
-	<button type="button" class = "btn btn-secondary">Submit</button>
-  </form>
+    <h1>Get It Done!</h1>
+    <form id="settings">
+  	Time before popup (minutes):
+  	<input type="number" id="duration"></input>
+  	<button type="button" class = "btn btn-secondary">Submit</button>
+    </form>
+  <script src="libs/jquery.js"></script>
+  <script src="popup.js"></script>
+  <select>
+    <option value="60">Last Hour</option>
+    <option value="1440">Last Day</option>
+    <option value="10080">Last Week</option>
+    <option value="40320">Last Month</option>
+  </select>
+<div id="chart-div" class="col-md-5">
+  <canvas id="website-chart" width="400" height="400"></canvas>
+</div>
+</div>
 <script src="libs/jquery.js"></script>
-<script src="popup.js"></script>
+<script src="libs/Chart.min.js"></script>
+<script src="website_percentage.js"></script>
 </body>
 </html>
