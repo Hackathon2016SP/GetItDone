@@ -6,19 +6,15 @@
   <link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
 </head>
 <body>
-  <p></p>
-  <div id="charts">
+  <select id="span-select">
+    <option value="1">Last Minute</option>
+      <option value="60">Last Hour</option>
+      <option value="1440">Last Day</option>
+      <option value="10080">Last Week</option>
+      <option value="302400">Last Month</option>
+  </select>
     <div class="chart-div col-md-5">
-      <h1>Last 15 Minutes</h1>
-      <canvas class="website-chart" id="minute" width="400" height="400"></canvas>
-    </div>
-    <div class="chart-div col-md-5">
-      <h1>Last 1 Hour</h1>
-      <canvas class="website-chart" id="hour" width="400" height="400"></canvas>
-    </div>
-    <div class="chart-div col-md-5">
-      <h1>Last 1 Day</h1>
-      <canvas class="website-chart" id="day" width="400" height="400"></canvas>
+      <canvas id="website-chart" width="400" height="400"></canvas>
     </div>
   </div>
   <script src="libs/jquery.js"></script>

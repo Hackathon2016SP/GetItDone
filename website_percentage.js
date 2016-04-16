@@ -1,3 +1,9 @@
+function values(o) {
+    return Object.keys(o).map(function (k) {
+        return o[k]
+    })
+}
+
 function draw_chart_for_minutes_before(minutes_before) {
     chrome.storage.local.get(null, function (object) {
         var data = {};
@@ -16,14 +22,9 @@ function draw_chart_for_minutes_before(minutes_before) {
             data[url] = visitTimeTotal;
         }
 
-        function values(o) {
-            return Object.keys(o).map(function (k) {
-                return o[k]
-            })
-        }
-
         function website_percentage(data, elementID) {
             // console.log(document.getElementById(elementID));
+            $('#'+elementID).replaceWith('<canvas id="website-chart" width="400" height="400"></canvas>')
             var ctx = document.getElementById(elementID).getContext("2d");
             var X = Object.keys(data);
             var Y = values(data);
@@ -42,24 +43,19 @@ function draw_chart_for_minutes_before(minutes_before) {
                 /* this is where we check if event has keys which means is not empty space */
                 if (Object.keys(activePoints).length > 0) {
                     var label = activePoints[0]["label"];
-                    var url = "website_over_time.html?" + "span=" + elementID + "&website=" + label;
+                    var url = "website_over_time.html?" + "span=" + minutes_before + "&website=" + label;
                 }
                 chrome.tabs.create({url: url});
             };
             var legend = myPieChart.generateLegend();
             $('#' + elementID).parent().append(legend);
         }
-
-        if (minutes_before == 15) {
-            website_percentage(data, "minute");
-        } else if (minutes_before == 60) {
-            website_percentage(data, "hour");
-        } else {
-            website_percentage(data, "day");
-        }
+            website_percentage(data, "website-chart");
     });
 }
-
-draw_chart_for_minutes_before(15);
-draw_chart_for_minutes_before(60);
-draw_chart_for_minutes_before(1440);
+var minutes = 60;
+draw_chart_for_minutes_before(minutes);
+$('#span-select').on('change', function() {
+  minutes = parseInt(this.value);
+  draw_chart_for_minutes_before(minutes);
+});
