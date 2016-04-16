@@ -26,5 +26,5 @@ function poop(document){
   });
 }
 $(document).ready(function () {
-  poop(document);
+  // poop(document);
 });

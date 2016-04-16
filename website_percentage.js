@@ -35,6 +35,17 @@ function website_percentage(data, elementID){
   var myPieChart = new Chart(ctx).Pie(graph_data, {
      legendTemplate : '<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>'
   });
+  document.getElementById(elementID).onclick = function(evt){
+      var activePoints = myPieChart.getSegmentsAtEvent(evt);
+
+      /* this is where we check if event has keys which means is not empty space */
+      if(Object.keys(activePoints).length > 0)
+      {
+          var label = activePoints[0]["label"];
+          var url = "website_over_time.html?" + "span="+elementID+"&website="+label;
+      }
+      chrome.tabs.create({ url: url });
+  };
   var legend = myPieChart.generateLegend();
   $('#'+elementID).parent().append(legend);
 }
@@ -42,6 +53,8 @@ function website_percentage(data, elementID){
 
 var charts = $('.website-chart');
 for (var i in charts){
-  var chart = charts[i];
-  website_percentage(test_data[chart.id], chart.id);
+  if(i<charts.length-1){
+    var chart = charts[i];
+    website_percentage(test_data[chart.id], chart.id);
+  }
 }
