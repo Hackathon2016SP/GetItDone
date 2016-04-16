@@ -1,7 +1,11 @@
 function values(o) {
     return Object.keys(o).map(function (k) {
-        return o[k]
+        return o[k];
     })
+}
+
+function truncate(x){
+  return Math.round(x*100)/100;
 }
 
 function sum( obj ) {
@@ -43,7 +47,7 @@ function draw_chart_for_minutes_before(minutes_before) {
                 var date = new Date(parseInt(visitTime));
                 var currentDate = new Date();
                 if (date > new Date(currentDate.getTime() - minutes_before * 60 * 1000)) {
-                    visitTimeTotal = visitTimeTotal + visitLength;
+                    visitTimeTotal = visitTimeTotal + truncate(visitLength/60);
                 }
             }
             data[url] = visitTimeTotal;
