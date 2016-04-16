@@ -55,7 +55,8 @@ function website_over_month(data, elementID){
 }
 
 function create_canvas(website){
-  var str = '<div class="chart-div col-md-5"><h1>'+website+'</h1><canvas class="time-chart" id="'+website+'" width="400" height="400"></canvas></div>'
+  var str = '<div class="chart-div col-md-5"><h1>'+website+'</h1><canvas class="time-chart" id="'+website+'" width="400" height="400"></canvas></div>';
+  return str;
 }
 var websites = Object.keys(test_data)
 for(var i in websites){
