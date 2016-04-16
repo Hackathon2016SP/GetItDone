@@ -16,3 +16,40 @@ $('#settings').submit(function(e){
 
 });
 
+var blacklist = ["facebook","twitter","tumblr","youtube","messenger","reddit"];
+
+
+$(document).ready(function(){
+    chrome.storage.local.get(null, function (object) {
+      var totalTime = 0;
+      var data = {};
+      for (var url in object) {
+        for (var i in blacklist){
+          if (url.includes(blacklist[i])){
+            // console.log(blacklist[i]);
+            // console.log(object);
+            // console.log(url);
+            // console.log(object[url]);
+            var data_for_url = JSON.parse(object[url]);
+            var visitTimeTotal = 0;
+            for (var visitTime in data_for_url) {
+                var visitLength = data_for_url[visitTime];
+                var date = new Date(parseInt(visitTime));
+                var currentDate = new Date();
+                if (date > new Date(currentDate.getTime() - 1440 * 60 * 1000)) {
+                    visitTimeTotal = visitTimeTotal + visitLength;
+                }
+            }
+            totalTime+=visitTimeTotal;
+          //  console.log(totalTime);
+          }
+        }
+      }
+
+      chrome.storage.local.get("popupTimer",function(result){
+        $('#remaining').text(Math.round(((result["popupTimer"]*60)-totalTime)/60))    
+      });
+
+    });
+  }
+);
