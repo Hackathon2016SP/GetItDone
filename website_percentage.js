@@ -68,7 +68,7 @@ function draw_chart_for_minutes_before(minutes_before) {
                 graph_data.push({value: data[site], label: site, labelColor: 'white', labelFontSize: '16'});
             }
             var myPieChart = new Chart(ctx).Pie(graph_data, {
-                legendTemplate: '<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\">&nbsp&nbsp&nbsp&nbsp</span>&nbsp<%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+                legendTemplate: '<div class=\"margin20\"></div><ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\">&nbsp&nbsp&nbsp&nbsp</span>&nbsp<%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
             });
             document.getElementById(elementID).onclick = function (evt) {
                 var activePoints = myPieChart.getSegmentsAtEvent(evt);
