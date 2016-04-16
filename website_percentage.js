@@ -1,7 +1,11 @@
 function values(o) {
     return Object.keys(o).map(function (k) {
-        return o[k]
+        return o[k];
     })
+}
+
+function truncate(x){
+  return Math.round(x*100)/100;
 }
 
 function sum( obj ) {
@@ -43,7 +47,7 @@ function draw_chart_for_minutes_before(minutes_before) {
                 var date = new Date(parseInt(visitTime));
                 var currentDate = new Date();
                 if (date > new Date(currentDate.getTime() - minutes_before * 60 * 1000)) {
-                    visitTimeTotal = visitTimeTotal + visitLength;
+                    visitTimeTotal = visitTimeTotal + truncate(visitLength/60);
                 }
             }
             data[url] = visitTimeTotal;
@@ -64,7 +68,7 @@ function draw_chart_for_minutes_before(minutes_before) {
                 graph_data.push({value: data[site], label: site, labelColor: 'white', labelFontSize: '16'});
             }
             var myPieChart = new Chart(ctx).Pie(graph_data, {
-                legendTemplate: '<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\">&nbsp&nbsp&nbsp&nbsp</span>&nbsp<%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+                legendTemplate: '<div class=\"margin20\"></div><ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\">&nbsp&nbsp&nbsp&nbsp</span>&nbsp<%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
             });
             document.getElementById(elementID).onclick = function (evt) {
                 var activePoints = myPieChart.getSegmentsAtEvent(evt);
@@ -72,8 +76,10 @@ function draw_chart_for_minutes_before(minutes_before) {
                 /* this is where we check if event has keys which means is not empty space */
                 if (Object.keys(activePoints).length > 0) {
                     var label = activePoints[0]["label"];
-                    var url = "website_over_time_specific.html?" + "span=" + minutes_before + "&website=" + label;
-                    location.href=url;
+                    if(label != 'Others'){
+                      var url = "website_over_time_specific.html?" + "span=" + minutes_before + "&website=" + label;
+                      location.href=url;
+                    }
                 }
             };
             var legend = myPieChart.generateLegend();
