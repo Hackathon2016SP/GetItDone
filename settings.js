@@ -4,13 +4,14 @@ $('#settings').submit(function(e){
 
   var data = {};
   var duration = $("#duration").val();
-  data["popupTimer"] = duration;
-  chrome.storage.local.set(data,function(object){console.log(object)});
+  data["popupTimer"] = duration/1; //used to make duration an integer
+  chrome.storage.local.set(data,function(){console.log("stored")});
 
-  var alarmParam = {}
-  alarmParam["delayInMinutes"] = duration/1;
-  console.log(alarmParam);
-  chrome.alarms.create(alarmParam);
+  // Generates alarm
+  //var alarmParam = {}
+  //alarmParam["delayInMinutes"] = duration/1;
+  //console.log(alarmParam);
+  //chrome.alarms.create(alarmParam);
 
 
 });
