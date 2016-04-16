@@ -24,6 +24,9 @@ function poop(document){
     //console.log("poop");
     $(this).text(insert_poop_to_text($(this).text(),0.05));
   });
+  var audioURL = chrome.extension.getURL("hello.wav");
+  var audio = new Audio(audioURL);
+  audio.play();
 }
 $(document).ready(function () {
   // poop(document);
