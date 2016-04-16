@@ -54,7 +54,7 @@ function draw_chart_for_minutes_before(minutes_before) {
             website_percentage(data, "website-chart");
     });
 }
-var minutes = 60;
+var minutes = 10;
 draw_chart_for_minutes_before(minutes);
 $('#span-select').on('change', function() {
   minutes = parseInt(this.value);
