@@ -50,32 +50,34 @@ chrome.tabs.onActivated.addListener(function () {
             stringified[afterString] = difference;
             var data = {};
             data[oldURL] = JSON.stringify(stringified);
+			console.log(data);
             chrome.storage.local.get(oldURL, function(object) {
-                if(object == undefined) {
+				console.log(data);
+                if(object == undefined || object[oldURL] == undefined) {
+					console.log(data);
                     chrome.storage.local.set(data, function () {
                         chrome.storage.local.get(oldURL, function (object) {
                             console.log(object);
                             oldURL = url;
                         })
                     });
+                } else {
+					console.log(object);
+					console.log(object[oldURL]);
+					if (object[oldURL] != undefined) {
+						var found = JSON.parse(object[oldURL]);
+						found[afterString] = difference;
+						var newData = {};
+						newData[oldURL] = JSON.stringify(found);
+						chrome.storage.local.set(newData, function () {
+							chrome.storage.local.get(oldURL, function (object) {
+								console.log(object);
+								oldURL = url;
+							})
+						});
+					}
                 }
-                else {
-                    var found = JSON.parse(object[oldURL]);
-                    found[afterString] = difference;
-                    var data = {};
-                    data[oldURL] = JSON.stringify(found);
-                    chrome.storage.local.set(data, function () {
-                        chrome.storage.local.get(oldURL, function (object) {
-                            console.log(object);
-                            oldURL = url;
-                        })
-                    });
-
-                }
-
-
-
-            })
+            });
 
         } else {
             oldURL = url; // Only called first time
