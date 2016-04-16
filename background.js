@@ -70,13 +70,5 @@ chrome.tabs.onActivated.addListener(function(){
 function printStatus() {
   getCurrentTabUrl(function(x){
     console.log(x);
-  });  
+  });
 }
-
-chrome.browserAction.onClicked.addListener(function (tab) {
-    // No tabs or host permissions needed!
-    console.log('Turning ' + tab.url + ' red!');
-    chrome.tabs.executeScript({
-        code: 'var imgURL = chrome.extension.getURL("poop.png"); $("<img/>").attr("src", imgURL); console.log("hello");'
-    });
-});
