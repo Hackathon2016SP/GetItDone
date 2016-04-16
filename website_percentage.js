@@ -4,6 +4,33 @@ function values(o) {
     })
 }
 
+function sum( obj ) {
+  var sum = 0;
+  for( var el in obj ) {
+    if( obj.hasOwnProperty( el ) ) {
+      sum += parseFloat( obj[el] );
+    }
+  }
+  return sum;
+}
+
+function trim_data(data){
+  var value_sum = sum(data);
+  data['others'] = 0.0;
+  var keys = Object.keys(data);
+  for (var i in keys){
+    var key = keys[i];
+    if (key != 'others'){
+      var value = data[key];
+      if (value/value_sum < 0.01){
+        delete data[key];
+        data['others'] = data['others'] + value;
+      }
+    }
+  }
+}
+
+
 function draw_chart_for_minutes_before(minutes_before) {
     chrome.storage.local.get(null, function (object) {
         var data = {};
@@ -23,6 +50,7 @@ function draw_chart_for_minutes_before(minutes_before) {
         }
 
         function website_percentage(data, elementID) {
+            trim_data(data);
             // console.log(document.getElementById(elementID));
             $('#'+elementID).replaceWith('<canvas id="website-chart" width="400" height="400"></canvas>');
             $('.pie-legend').remove();
