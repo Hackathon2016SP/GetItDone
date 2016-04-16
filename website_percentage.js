@@ -76,8 +76,10 @@ function draw_chart_for_minutes_before(minutes_before) {
                 /* this is where we check if event has keys which means is not empty space */
                 if (Object.keys(activePoints).length > 0) {
                     var label = activePoints[0]["label"];
-                    var url = "website_over_time_specific.html?" + "span=" + minutes_before + "&website=" + label;
-                    location.href=url;
+                    if(label != 'Others'){
+                      var url = "website_over_time_specific.html?" + "span=" + minutes_before + "&website=" + label;
+                      location.href=url;
+                    }
                 }
             };
             var legend = myPieChart.generateLegend();
