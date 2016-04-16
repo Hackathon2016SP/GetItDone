@@ -45,7 +45,7 @@ chrome.tabs.onActivated.addListener(function () {
             var afterDate = new Date();
             var afterTime = afterDate.getTime();
             var difference = (afterTime - initialTime) / 1000;
-			if (difference > 10) {
+			if (difference > 1) {
 				var afterString = afterTime.toString();
 				var stringified = {};
 				stringified[afterString] = difference;
