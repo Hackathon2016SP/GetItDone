@@ -43,13 +43,26 @@ function getCurrentTabUrl(callback) {
 chrome.tabs.onActivated.addListener(function(){
 
   if(visiting){
-    var afterTime = date.getTime();
+    var afterDate = new Date();
+    var afterTime = afterDate.getTime();
+
+    console.log(afterTime);
+    console.log(initialTime);
+
     var difference = (afterTime-initialTime)/1000;
+    console.log(difference);
+
     var afterString = afterTime.toString();
-    var data = {
-      oldURL : {afterString : difference}
-    };
-    chrome.storage.local.set(data,function(){console.log("stored!")});
+
+    var stringified = {};
+    stringified[afterString] = difference;
+    var data = {};
+    data[oldURL] = JSON.stringify(stringified);
+    console.log(data)
+    chrome.storage.local.set(data,function(){
+      console.log("stored!");
+      chrome.storage.local.get(oldURL,function(object){console.log(object)})
+    });
     visiting = false;
   }
 
