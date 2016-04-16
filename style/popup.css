@@ -3,7 +3,8 @@ body{
    height:500px;
 }
 #title {
-	text-align: center;
+    margin: 5px;
+    text-align: right;
 }
 #chart-div{
   text-align: center; 
