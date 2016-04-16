@@ -13,6 +13,7 @@ body{
 }
 
 #duration {
+    width: 75px;
   text-align: center;
 }
 
@@ -48,4 +49,9 @@ body{
 #timeRemain{
   /*display:inline;*/
   text-align:center;
+}
+
+.combobox-container {
+    width: 200px !important;
+    text-align: center;
 }
