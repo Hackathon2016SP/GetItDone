@@ -38,8 +38,9 @@ function getCurrentTabUrl(callback) {
     });
 }
 
-//When tab is activated, will start listening
-chrome.tabs.onActivated.addListener(function () {
+// Store the current tab session
+function storeData() {
+	console.log("Starting Store call")
     getCurrentTabUrl(function (url) {
         if (visiting) {
             var afterDate = new Date();
@@ -69,6 +70,7 @@ chrome.tabs.onActivated.addListener(function () {
 							chrome.storage.local.set(newData, function () {
 								chrome.storage.local.get(oldURL, function (object) {
 									oldURL = url;
+									console.log(newData)
 								})
 							});
 						}
@@ -84,8 +86,17 @@ chrome.tabs.onActivated.addListener(function () {
         var date = new Date();
         initialTime = date.getTime();
     });
-});
+}
 
+
+//When tab is activated, will start listening
+chrome.tabs.onActivated.addListener(storeData);
+
+//When tab is updated, will start listening
+chrome.tabs.onUpdated.addListener(storeData);
+
+//When tab is created, will start listening
+chrome.tabs.onCreated.addListener(storeData);
 
 function printStatus() {
     getCurrentTabUrl(function (x) {
