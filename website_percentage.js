@@ -73,8 +73,8 @@ function draw_chart_for_minutes_before(minutes_before) {
                 if (Object.keys(activePoints).length > 0) {
                     var label = activePoints[0]["label"];
                     var url = "website_over_time_specific.html?" + "span=" + minutes_before + "&website=" + label;
+                    location.href=url;
                 }
-                chrome.tabs.create({url: url});
             };
             var legend = myPieChart.generateLegend();
             $('#' + elementID).parent().append(legend);
