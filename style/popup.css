@@ -7,8 +7,23 @@ body{
 }
 #chart-div{
   text-align: center; 
+  width:550;
+  height:500;
+}
+
+#duration {
+  text-align: center;
 }
 
 .pie-legend{
   list-style-type: none;
 }
+
+#settings{
+  text-align: center;
+}
+
+#dropdown{
+  text-align: center;
+  margin-bottom: 10px;
+
