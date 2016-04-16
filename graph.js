@@ -20,7 +20,14 @@ var test_data = {
       "4/12/16": 80,
       "4/13/16": 55,
       "4/14/16": 15
-    }
+    },
+    "Facebook":{
+        "4/10/16": 100,
+        "4/11/16": 90,
+        "4/12/16": 80,
+        "4/13/16": 55,
+        "4/14/16": 15
+      }
   }
 
 function website_over_month(website_name, elementID){
@@ -47,4 +54,8 @@ function website_over_month(website_name, elementID){
   var myLineChart = new Chart(ctx).Line(data, options);
 }
 
-website_over_month("Youtube", "myChart");
+var charts = $('.time-chart');
+for (var i in charts){
+  var chart = charts[i];
+  website_over_month(chart.id, chart.id);
+}
