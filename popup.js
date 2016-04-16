@@ -13,14 +13,17 @@ $('#settings').submit(function(e){
   //console.log(alarmParam);
   //chrome.alarms.create(alarmParam);
 
+  timeRemaining();
+  $('#editTime').toggle();
 
+  $('#timeRemain').toggle();
+  $('#editButton').toggle();
 });
 
 var blacklist = ["facebook","twitter","tumblr","youtube","messenger","reddit"];
 
-
-$(document).ready(function(){
-    chrome.storage.local.get(null, function (object) {
+function timeRemaining(){
+   chrome.storage.local.get(null, function (object) {
       var totalTime = 0;
       var data = {};
       for (var url in object) {
@@ -47,9 +50,20 @@ $(document).ready(function(){
       }
 
       chrome.storage.local.get("popupTimer",function(result){
-        $('#remaining').text(Math.round(((result["popupTimer"]*60)-totalTime)/60))    
+        var time = (result["popupTimer"]*60)-totalTime
+        $('#remaining').text("Time Left: "+Math.round(time)+" seconds (~"+Math.round(time/60)+" mins)")    
       });
 
     });
-  }
-);
+}
+
+$('#editButton').click(function(){
+  $('#editTime').toggle();
+  $('#timeRemain').toggle();
+  $('#editButton').toggle();
+});
+
+
+$(document).ready(function(){
+  timeRemaining();  
+});

@@ -3,7 +3,8 @@ body{
    height:500px;
 }
 #title {
-	text-align: center;
+    margin: 5px;
+    text-align: right;
 }
 #chart-div{
   text-align: center; 
@@ -30,4 +31,21 @@ body{
 
 .margin20 {
     margin: 20px;
+}
+
+#remaining{
+  display: inline;
+}
+
+#editTime{
+  display:none;
+}
+
+#editButton{
+  display:inline;
+}
+
+#timeRemain{
+  /*display:inline;*/
+  text-align:center;
 }
