@@ -43,30 +43,30 @@ var span = qs.span;
 
 
 var test_data = {};
-// chrome.storage.local.get(null, function (object) {
-//     var dateObject = new Date(0);
-//     for (var url in object) {
-//         test_data[url] = {};
-//         var data_for_url = JSON.parse(object[url]);
-//         var oldTime = 0;
-//         var visitTimeForDate = 0;
-//         for (var visitTime in data_for_url) {
-//             var visitLength = data_for_url[visitTime];
-//             var date = new Date(parseInt(visitTime));
-//             var time = String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
-//             // Exceptional case for first old date object
-//             if (oldTime == 0) {
-//                 oldTime = time;
-//             }
-//             if (time == oldTime) {
-//                 visitTimeForDate = visitTimeForDate + visitLength;
-//             } else {
-//                 test_data[url][oldTime] = visitTimeForDate;
-//                 visitTimeForDate = 0;
-//             }
-//             oldTime = time;
-//         }
-//     }
+chrome.storage.local.get(null, function (object) {
+    var dateObject = new Date(0);
+    for (var url in object) {
+        test_data[url] = {};
+        var data_for_url = JSON.parse(object[url]);
+        var oldTime = 0;
+        var visitTimeForDate = 0;
+        for (var visitTime in data_for_url) {
+            var visitLength = data_for_url[visitTime];
+            var date = new Date(parseInt(visitTime));
+            var time = String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
+            // Exceptional case for first old date object
+            if (oldTime == 0) {
+                oldTime = time;
+            }
+            if (time == oldTime) {
+                visitTimeForDate = visitTimeForDate + visitLength;
+            } else {
+                test_data[url][oldTime] = visitTimeForDate;
+                visitTimeForDate = 0;
+            }
+            oldTime = time;
+        }
+    }
     function website_over_month(data, elementID) {
         var ctx = document.getElementById(elementID).getContext("2d");
         var X = Object.keys(data);
@@ -96,16 +96,7 @@ var test_data = {};
         return str;
     }
 
-    var websites = Object.keys(test_data)
-    for (var i in websites) {
-        var website = websites[i];
-        $('#charts').append(create_canvas(website));
-    }
-
-    var charts = $('.time-chart');
-    for (var i in charts) {
-       if (i < charts.length - 1){
-         var chart = charts[i];
-         website_over_month(test_data[chart.id], chart.id);
-       }
-    }
+    website = "https://www.facebook.com/";
+    $('#charts').append(create_canvas(website));
+    website_over_month(test_data[website], website);
+  })
