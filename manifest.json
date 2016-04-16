@@ -1,32 +1,25 @@
 {
   "manifest_version": 2,
-
   "name": "Get It Done",
   "description": "This extension gets shit done.",
   "version": "1.0",
-
   "permissions": [
     "activeTab",
     "tabs",
     "storage",
     "https://ajax.googleapis.com/"
   ],
-
   "content_scripts": [{
-        "matches": ["http://*/*", "https://*/*"],
-        "js": ["libs/jquery.js", "content.js"]
-    }],
-
+    "matches": ["<all_urls>"],
+    "js": ["libs/jquery.js", "content.js"]
+  }],
   "browser_action": {
-        "default_icon": "poop.png",
-        "default_popup": "popup.html"
+    "default_icon": "poop.png"
   },
-
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js"],
+    "persistent": false
   },
-
   "web_accessible_resources": ["poop.png"],
-
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

@@ -1,10 +1,3 @@
-// {
-//     "youtube":{
-//             "Date": Time
-//     }
-// }
-// dd/mm/yyyy
-
 var initialTime = 0;
 var visiting = false;
 var oldURL = "";
@@ -79,3 +72,11 @@ function printStatus() {
     console.log(x);
   });  
 }
+
+chrome.browserAction.onClicked.addListener(function (tab) {
+    // No tabs or host permissions needed!
+    console.log('Turning ' + tab.url + ' red!');
+    chrome.tabs.executeScript({
+        code: 'var imgURL = chrome.extension.getURL("poop.png"); $("<img/>").attr("src", imgURL); console.log("hello");'
+    });
+});
