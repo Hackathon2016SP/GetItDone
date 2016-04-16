@@ -50,7 +50,7 @@ function draw_chart_for_minutes_before(minutes_before) {
             $('#' + elementID).parent().append(legend);
         }
 
-        if (minutes_before == 1) {
+        if (minutes_before == 15) {
             website_percentage(data, "minute");
         } else if (minutes_before == 60) {
             website_percentage(data, "hour");
@@ -60,6 +60,6 @@ function draw_chart_for_minutes_before(minutes_before) {
     });
 }
 
-draw_chart_for_minutes_before(1);
+draw_chart_for_minutes_before(15);
 draw_chart_for_minutes_before(60);
 draw_chart_for_minutes_before(1440);
