@@ -42,7 +42,7 @@ chrome.storage.local.get(null, function (object) {
             var visitLength = data_for_url[visitTime];
             var date = new Date(parseInt(visitTime));
             var currentDate = new Date();
-            if (time <= new Date(currentDate.getTime() - span * 60 * 1000)) {
+            if (date <= new Date(currentDate.getTime() - span * 60 * 1000)) {
                 continue;
             }
             var time = String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
