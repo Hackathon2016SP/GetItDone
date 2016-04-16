@@ -106,7 +106,7 @@ function printStatus() {
 
 chrome.runtime.onInstalled.addListener(function () {
     console.log("Installed.");
-    chrome.alarms.create({delayInMinutes: 0.1});
+   // chrome.alarms.create({delayInMinutes: 0.1});
 });
 
 chrome.alarms.onAlarm.addListener(function () {
