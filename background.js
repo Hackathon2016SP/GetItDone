@@ -1,7 +1,6 @@
 var initialTime = 0;
 var visiting = false;
 var oldURL = "";
-var date = new Date();
 
 /**
  * Get the current URL.
@@ -43,17 +42,22 @@ function getCurrentTabUrl(callback) {
 chrome.tabs.onActivated.addListener(function(){
 
   if(visiting){
-    var afterTime = date.getTime();
+    var afterDate = new Date();
+    var afterTime = afterDate.getTime();
     var difference = (afterTime-initialTime)/1000;
     var afterString = afterTime.toString();
-    var data = {
-      oldURL : {afterString : difference}
-    };
-    chrome.storage.local.set(data,function(){console.log("stored!")});
+    var stringified = {};
+    stringified[afterString] = difference;
+    var data = {};
+    data[oldURL] = JSON.stringify(stringified);
+    chrome.storage.local.set(data,function(){
+      chrome.storage.local.get(oldURL,function(object){console.log(object)})
+    });
     visiting = false;
   }
 
   //initial visit of website will start the timer
+  var date = new Date();
   initialTime = date.getTime();
   visiting = true;
 
