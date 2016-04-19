@@ -25,7 +25,7 @@ function getCurrentTabUrl(callback) {
 
     chrome.tabs.query(queryInfo, function (tabs) {
         if (tabs == undefined){
-          console.log("Undefined Tabs")
+          // console.log("Undefined Tabs")
           callback(undefined);
         }
         // chrome.tabs.query invokes the callback with a list of tabs that match the
@@ -35,7 +35,7 @@ function getCurrentTabUrl(callback) {
         // exactly one tab.
         var tab = tabs[0];
         if (tabs[0] == undefined){
-          console.log("Undefined Tab")
+          // console.log("Undefined Tab")
           callback(undefined);
           return;
         }
@@ -59,81 +59,84 @@ function getCurrentTabUrl(callback) {
     });
 }
 
-// Store the current tab session
+// Store the previous tab session (oldURL) and restarts timer and URL
+// for the new tab
 function storeData() {
-	console.log("Starting Store call")
     getCurrentTabUrl(function (url) {
-        if (visiting) {
+        // checks if not first interaction and that the previous url
+        // is not undefined (only happens when interacting with console)
+        if (visiting && oldURL != undefined) {
     //  if (visiting && !(/chrome.*/.test(oldURL))) {
-		//	console.log(!(/chrome.*/.test(oldURL)))
-        var afterDate = new Date();
-        var afterTime = afterDate.getTime();
-        var difference = (afterTime - initialTime) / 1000;
-        console.log(difference);
-  			if (difference > 1) {
-          var afterString = afterTime.toString();
-  				var stringified = {};
-  				stringified[afterString] = difference;
-  				var data = {};
-  				data[oldURL] = JSON.stringify(stringified);
-          console.log("test: old "+oldURL);
-          console.log("test: current "+url);
-  				chrome.storage.local.get(oldURL, function(object) {
-            console.log("the object");
-            console.log(oldURL);
-            console.log(object[oldURL]);
-            console.log(object);
+		//	  console.log(!(/chrome.*/.test(oldURL)))
+          var afterDate = new Date();
+          var afterTime = afterDate.getTime();
+          var difference = (afterTime - initialTime) / 1000;
+          console.log(difference);
+    			
+          // does not count super small amounts of time
+          // may be slightly problematic
+          if (difference > 1) {
+            var afterString = afterTime.toString();
+    				var stringified = {};
+    				stringified[afterString] = difference;
+    				var data = {};
+    				data[oldURL] = JSON.stringify(stringified);
 
-  					if(object == undefined || object[oldURL] == undefined) {
-              console.log("Switched websites");
-              console.log(object);
-              console.log("end of new site");
-  		//				console.log(data);
-              console.log("Stored URL: "+oldURL);
-  						chrome.storage.local.set(data, function () {
-  							chrome.storage.local.get(oldURL, function (object) {
-  				//			console.log(object);
-                  updateTimeAndURL(url);
-  							})
-  						});
-  					} else {
-  						if (object[oldURL] != undefined) {
-                console.log("Website exists")
-  							var found = JSON.parse(object[oldURL]);
-  							found[afterString] = difference;
-  							var newData = {};
-  							newData[oldURL] = JSON.stringify(found);
-  							console.log("Stored URL: "+oldURL);
-                chrome.storage.local.set(newData, function () {
+            // attemtps to get the old data
+    				chrome.storage.local.get(oldURL, function(object) {
+              // if no old data or if no old data for to be stored url
+              // then it is a new website and should be added as such
+    					if(object == undefined || object[oldURL] == undefined) {
+                console.log("New website");
+                console.log("Stored URL: "+oldURL);
+    						chrome.storage.local.set(data, function () {
+    							chrome.storage.local.get(oldURL, function (object) {
+                    updateTimeAndURL(url);
+    							})
+    						});
+              // otherwise gets the old site's information and 
+              // adds a new section of time to the list 
+              // data structure is object[site name]{endTime : duration}
+    					} else {
+    						if (object[oldURL] != undefined) {
+                  console.log("Website exists")
+    							var found = JSON.parse(object[oldURL]);
+    							found[afterString] = difference;
+    							var newData = {};
+    							newData[oldURL] = JSON.stringify(found);
+    							console.log("Stored URL: "+oldURL);
+                  chrome.storage.local.set(newData, function () {
   								chrome.storage.local.get(oldURL, function (object) {
-  				//					console.log(newData)
                       updateTimeAndURL(url);
-  								})
-  							});
-  						}
-  					}
-  				});
-  			}
-      } else if (url == undefined){
+    								})
+    							});
+    						}
+    					}
+  				  });
+  			  }
+      // in the case that oldURL is undefined, then just update the 
+      // url and time 
+      } else if (oldURL == undefined){
         console.log("undefined url");
         updateTimeAndURL(url);
       }
+      // this should only be called the first time, can be merged
+      // with the else if case, but for current sake of clarity isnt
       else {
-        console.log("first call");
-        // Only called first time
-  //      console.log(oldURL);
         visiting = true;
         updateTimeAndURL(url);
       }
     });
 }
 
+// updates time and url, of which are global variables hence can be 
+// put in a separate function
 function updateTimeAndURL(url){
-  console.log("updating info");
+  // new date object needs to be generated on creation
   var date = new Date();
   initialTime = date.getTime();
   oldURL = url; 
-  console.log("New URL: "+oldURL);
+  // console.log("New URL: "+oldURL);
 }
 
 
@@ -162,14 +165,16 @@ chrome.tabs.onCreated.addListener(
     storeData();
   });
 
+// should activate when loses focus of browser
 chrome.windows.onFocusChanged.addListener(
-  function(id){
+  function(windowId){
     console.log("on focus changed");
-    if (id == chrome.windows.WINDOW_ID_NONE) {
-      storeData();
-  }
+    //if (windowId == chrome.windows.WINDOW_ID_NONE) {
+    storeData();
+  //}
 });
 
+// should work when browser becomes idle
 chrome.idle.onStateChanged.addListener(
   function(newState){
     console.log("on state changed, idle");
@@ -180,13 +185,7 @@ chrome.idle.onStateChanged.addListener(
       storeData();
     }
   }
-  );
-
-function printStatus() {
-    getCurrentTabUrl(function (x) {
-  //      console.log(x);
-    });
-}
+);
 
 chrome.runtime.onInstalled.addListener(function () {
     console.log("Installed.");
