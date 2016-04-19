@@ -37,6 +37,7 @@ function getCurrentTabUrl(callback) {
         if (tabs[0] == undefined){
           console.log("Undefined Tab")
           callback(undefined);
+          return;
         }
 
         // A tab is a plain object that provides information about the tab.
@@ -130,9 +131,10 @@ chrome.tabs.onActivated.addListener(
 chrome.tabs.onUpdated.addListener(
   function(tabId,changeInfo,tab){
     console.log("on Updated");
-    console.log(tabId);
-    console.log(changeInfo);
-    console.log(tab);
+    //console.log(tabId);
+    //console.log(changeInfo);
+    //console.log(tab);
+    //console.log("on Updated End");
     storeData();
   });
 
