@@ -62,13 +62,15 @@ function getCurrentTabUrl(callback) {
 function storeData() {
 	console.log("Starting Store call")
     getCurrentTabUrl(function (url) {
-      if (visiting && !(/chrome.*/.test(oldURL))) {
+        if (visiting) {
+    //  if (visiting && !(/chrome.*/.test(oldURL))) {
 		//	console.log(!(/chrome.*/.test(oldURL)))
         var afterDate = new Date();
         var afterTime = afterDate.getTime();
         var difference = (afterTime - initialTime) / 1000;
-
+        console.log(difference);
   			if (difference > 1) {
+          console.log("significant difference");
   				var afterString = afterTime.toString();
   				var stringified = {};
   				stringified[afterString] = difference;
@@ -126,9 +128,12 @@ chrome.tabs.onActivated.addListener(
 
 //When tab is updated, will start listening
 chrome.tabs.onUpdated.addListener(
-  function(){
+  function(tabId,changeInfo,tab){
     console.log("on Updated");
-    //storeData();
+    console.log(tabId);
+    console.log(changeInfo);
+    console.log(tab);
+    storeData();
   });
 
 //When tab is created, will start listening
