@@ -71,20 +71,29 @@ function storeData() {
         var difference = (afterTime - initialTime) / 1000;
         console.log(difference);
   			if (difference > 1) {
-          console.log("significant difference");
-  				var afterString = afterTime.toString();
+          var afterString = afterTime.toString();
   				var stringified = {};
   				stringified[afterString] = difference;
   				var data = {};
   				data[oldURL] = JSON.stringify(stringified);
+          console.log("test: old "+oldURL);
+          console.log("test: current "+url);
   				chrome.storage.local.get(oldURL, function(object) {
+            console.log("the object");
+            console.log(oldURL);
+            console.log(object[oldURL]);
+            console.log(object);
+
   					if(object == undefined || object[oldURL] == undefined) {
-              console.log("New website");
+              console.log("Switched websites");
+              console.log(object);
+              console.log("end of new site");
   		//				console.log(data);
+              console.log("Stored URL: "+oldURL);
   						chrome.storage.local.set(data, function () {
   							chrome.storage.local.get(oldURL, function (object) {
-  				//				console.log(object);
-  								oldURL = url;
+  				//			console.log(object);
+                  updateTimeAndURL(url);
   							})
   						});
   					} else {
@@ -94,10 +103,11 @@ function storeData() {
   							found[afterString] = difference;
   							var newData = {};
   							newData[oldURL] = JSON.stringify(found);
-  							chrome.storage.local.set(newData, function () {
+  							console.log("Stored URL: "+oldURL);
+                chrome.storage.local.set(newData, function () {
   								chrome.storage.local.get(oldURL, function (object) {
-  									oldURL = url;
   				//					console.log(newData)
+                      updateTimeAndURL(url);
   								})
   							});
   						}
@@ -106,17 +116,24 @@ function storeData() {
   			}
       } else if (url == undefined){
         console.log("undefined url");
+        updateTimeAndURL(url);
       }
       else {
-            console.log("first call");
-            oldURL = url; // Only called first time
-      //      console.log(oldURL);
-            visiting = true;
+        console.log("first call");
+        // Only called first time
+  //      console.log(oldURL);
+        visiting = true;
+        updateTimeAndURL(url);
       }
-      //initial visit of website will start the timer
-      var date = new Date();
-      initialTime = date.getTime();
     });
+}
+
+function updateTimeAndURL(url){
+  console.log("updating info");
+  var date = new Date();
+  initialTime = date.getTime();
+  oldURL = url; 
+  console.log("New URL: "+oldURL);
 }
 
 
@@ -154,9 +171,10 @@ chrome.windows.onFocusChanged.addListener(
 });
 
 chrome.idle.onStateChanged.addListener(
-  function(state){
-    console.log("on state changed");
-    if (state == "active"){
+  function(newState){
+    console.log("on state changed, idle");
+    console.log(newState);
+    if (newState == "active"){
       storeData();
     } else { 
       storeData();
