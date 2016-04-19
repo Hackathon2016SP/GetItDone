@@ -163,9 +163,20 @@ chrome.tabs.onCreated.addListener(
   function(){
     console.log("on Created");
     storeData();
-  });
+});
+
+//When tab is highlighted, will start listening
+// chrome.tabs.onCreated.addListener(
+//   function(activeInfo){
+//     console.log("on highlighted");
+//     storeData();
+// });
 
 // should activate when loses focus of browser
+// currently has major issues, won't trigger on 
+// switching between apps as it should, will need
+// a workaround to constantly poll 
+// refer to: https://groups.google.com/a/chromium.org/forum/#!topic/chromium-extensions/TOo5q4NLCpk
 chrome.windows.onFocusChanged.addListener(
   function(windowId){
     console.log("on focus changed");
