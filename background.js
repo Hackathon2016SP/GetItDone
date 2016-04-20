@@ -188,12 +188,14 @@ chrome.windows.onFocusChanged.addListener(
 // should work when browser becomes idle
 chrome.idle.onStateChanged.addListener(
   function(newState){
-    console.log("on state changed, idle");
+    console.log("on state changed");
     console.log(newState);
     if (newState == "active"){
-      storeData();
+      storeData();    
     } else { 
-      storeData();
+      // probably shouldn't store data when is idle
+      // issue at hand
+      
     }
   }
 );
