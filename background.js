@@ -145,43 +145,31 @@ function updateTimeAndURL(url){
 }
 
 
-//When tab is activated, will start listening
+//When switching tabs, will storeData
 chrome.tabs.onActivated.addListener(
   function(){
     console.log("on Activated");
     storeData();
 });
 
-//When tab is updated, will start listening
+//When tab finishes loading a page, will storeData
 chrome.tabs.onUpdated.addListener(
   function(tabId,changeInfo,tab){
-    console.log("on Updated");
-    //console.log(tabId);
-    //console.log(changeInfo);
-    //console.log(tab);
-    //console.log("on Updated End");
-    storeData();
+    if (changeInfo["status"] == "complete"){
+      storeData();      
+      console.log("on page complete");
+    }
   });
 
 //When tab is created, will start listening
-chrome.tabs.onCreated.addListener(
-  function(){
-    console.log("on Created");
-    storeData();
-});
-
-//When tab is highlighted, will start listening
 // chrome.tabs.onCreated.addListener(
-//   function(activeInfo){
-//     console.log("on highlighted");
+//   function(){
+//     console.log("on Created");
 //     storeData();
 // });
 
-// should activate when loses focus of browser
-// currently has major issues, won't trigger on 
-// switching between apps as it should, will need
-// a workaround to constantly poll 
-// refer to: https://groups.google.com/a/chromium.org/forum/#!topic/chromium-extensions/TOo5q4NLCpk
+// changes when windows change (should handle window changes)
+// but chrome api has a bug
 chrome.windows.onFocusChanged.addListener(
   function(windowId){
     console.log("on focus changed");
@@ -190,7 +178,7 @@ chrome.windows.onFocusChanged.addListener(
   //}
 });
 
-// should work when browser becomes idle
+// handles cases when idle/locked
 chrome.idle.onStateChanged.addListener(
   function(newState){
     console.log("on state changed");
@@ -235,6 +223,7 @@ setInterval(function(){
     // stored yet. 
     if (!focused){
       if (!stored){
+        console.log("on focus");
         storeData();
         stored = true;
       } else{
@@ -248,7 +237,7 @@ setInterval(function(){
       console.log("focused");
     }
   });
-}, 3000);
+}, 5000);
 
 
 chrome.runtime.onInstalled.addListener(function () {
