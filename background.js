@@ -2,6 +2,7 @@ var initialTime = 0;
 var visiting = false;
 var oldURL = "";
 var idle = false;
+var stored = false;
 
 function getDomain(url) {
 	if (/http.*\/\/.*?\//.test(url)){
@@ -114,7 +115,10 @@ function storeData() {
     						}
     					}
   				  });
-  			  }
+          // even if difference is less than 1, still need to update
+  			  } else {
+            updateTimeAndURL(url);   
+          }
       // in the case that oldURL is undefined, then just update the 
       // url and time 
       } else if (oldURL == undefined){
@@ -222,6 +226,29 @@ function getURLAndUpdate(){
     }
   });
 }
+
+setInterval(function(){ 
+  chrome.windows.getCurrent(null, function(currentWindow){
+    //console.log(currentWindow["focused"]);
+    var focused = currentWindow["focused"];
+    // checks if window is not focused and data has not been
+    // stored yet. 
+    if (!focused){
+      if (!stored){
+        storeData();
+        stored = true;
+      } else{
+        getURLAndUpdate();
+      }
+      console.log("not focused");
+    
+    // in case where screen is in focus, then hasn't stored yet
+    } else {
+      stored = false;
+      console.log("focused");
+    }
+  });
+}, 3000);
 
 
 chrome.runtime.onInstalled.addListener(function () {
