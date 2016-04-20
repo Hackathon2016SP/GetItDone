@@ -1,6 +1,7 @@
 var initialTime = 0;
 var visiting = false;
 var oldURL = "";
+var idle = false;
 
 function getDomain(url) {
 	if (/http.*\/\/.*?\//.test(url)){
@@ -189,16 +190,39 @@ chrome.windows.onFocusChanged.addListener(
 chrome.idle.onStateChanged.addListener(
   function(newState){
     console.log("on state changed");
-    console.log(newState);
-    if (newState == "active"){
-      storeData();    
-    } else { 
-      // probably shouldn't store data when is idle
-      // issue at hand
-      
+    // if display is idle, then store the time up to idle point
+    if (newState == "idle"){
+      storeData();
+      idle = true;    
+    } else if (newState == "locked"){
+      // if you're not locking from an idle state, then 
+      // store data, otherwise do nothing
+      if (!idle) {
+        storeData();
+      }
+      idle = false;
+    } else if (newState == "active") { 
+      // if coming from idle, then store data (user reading an article)
+      if (idle) {
+        storeData();
+        idle = false;
+      // if coming from locked, then should just update 
+      } else {
+          // this should update the url and time
+          getURLAndUpdate()
+      }
     }
   }
 );
+
+function getURLAndUpdate(){
+  getCurrentTabUrl(function (url) {
+    if (visiting) {
+      updateTimeAndURL(url);
+    }
+  });
+}
+
 
 chrome.runtime.onInstalled.addListener(function () {
     console.log("Installed.");
