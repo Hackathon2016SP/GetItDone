@@ -3,7 +3,7 @@ body{
    height:500px;
 }
 #title {
-    margin: 5px;
+    margin: 15px;
     text-align: right;
 }
 #chart-div{
@@ -34,7 +34,7 @@ body{
     margin: 20px;
 }
 
-#remaining{
+#status{
   display: inline;
 }
 
