@@ -33,7 +33,7 @@ $(document).ready(function () {
   sumTime()
 });
 
-var blacklist = ["facebook","twitter","tumblr","youtube","messenger","reddit"];
+var blacklist = ["facebook","twitter","tumblr","youtube","messenger","reddit","twitch"];
 
 function sumTime(){
   chrome.storage.local.get(null, function (object) {
