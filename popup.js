@@ -50,8 +50,9 @@ function timeRemaining(){
       }
 
       chrome.storage.local.get("popupTimer",function(result){
-        var time = (result["popupTimer"]*60)-totalTime
-        $('#remaining').text("Time Left: "+Math.round(time)+" seconds (~"+Math.round(time/60)+" mins)")    
+        var diff = (result["popupTimer"]*60)-totalTime;
+        //$('#remaining').text("Time Left: "+Math.round(diff)+" seconds (~"+Math.round(diff/60)+" mins)");    
+        $('#status').text("Unproductive Time: "+"~"+Math.round(totalTime/60)+" mins (Time Left: ~"+Math.round(diff/60)+" mins)");
       });
 
     });
