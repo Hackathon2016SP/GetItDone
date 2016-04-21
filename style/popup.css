@@ -1,6 +1,8 @@
 body{
    width:550px;
    height:500px;
+   color:#3B3B3B !important;
+   background-color: #e7e7e7 !important;
 }
 #title {
     margin: 15px;
