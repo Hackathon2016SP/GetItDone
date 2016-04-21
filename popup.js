@@ -20,7 +20,7 @@ $('#settings').submit(function(e){
   $('#editButton').toggle();
 });
 
-var blacklist = ["facebook","twitter","tumblr","youtube","messenger","reddit"];
+var blacklist = ["facebook","twitter","tumblr","youtube","messenger","reddit","twitch"];
 
 function timeRemaining(){
    chrome.storage.local.get(null, function (object) {
