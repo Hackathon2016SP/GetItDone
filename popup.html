@@ -6,16 +6,17 @@
     <script src="libs/jquery.js"></script>
 </head>
 <body>
-<p id="title">Get It Done!&nbsp;</p>
+<p id="title"></p>
+
 <div id="editTime">
     <form id="settings">
         Unproductive time allowed today (minutes):
-        <input type="number" id="duration"></input>
+        <input type="number" id="duration" />
         <button type="submit" class="btn btn-default btn-secondary">Set</button>
     </form>
 </div>
 <div id="timeRemain">
-    <div id="remaining"></div>
+    <div id="status"></div>
     <div id="editButton">
         <button type="button" class="btn btn-default btn-secondary">Edit</button>
     </div>
@@ -32,10 +33,9 @@
 <div id="chart-div" class="col-md-5">
     <canvas id="website-chart"></canvas>
 </div>
+
 <script src="libs/Chart.min.js"></script>
 <script src="website_percentage.js"></script>
 <script src="website_over_time_specific.js"></script>
-<script src="libs/bootstrap-combobox.js"></script>
-<script src="combobox.js"></script>
 </body>
 </html>

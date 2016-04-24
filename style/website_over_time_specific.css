@@ -1,0 +1,17 @@
+body {
+    width: 550px;
+    height: 600px;
+    color: #3B3B3B !important;
+}
+
+#charts {
+    text-align: center;
+}
+
+#scroll {
+    padding-bottom: 98px;
+}
+
+#space {
+    padding: 10px;
+}

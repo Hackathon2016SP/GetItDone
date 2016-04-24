@@ -1,28 +1,31 @@
-body{
-   width:550px;
-   height:500px;
+body {
+    width: 550px;
+    height: 600px;
+    color: #3B3B3B !important;
 }
+
 #title {
-    margin: 5px;
+    padding-top: 15px;
     text-align: right;
 }
-#chart-div{
-  text-align: center; 
-  width:550;
-  height:500;
+
+#chart-div {
+    text-align: center;
+    width: 550px;
+    height: 500px;
 }
 
 #duration {
     width: 75px;
-  text-align: center;
+    text-align: center;
 }
 
-.pie-legend{
-  list-style-type: none;
+.pie-legend {
+    list-style-type: none;
 }
 
-#settings{
-  text-align: center;
+#settings {
+    text-align: center;
 }
 
 #dropdown {
@@ -34,21 +37,20 @@ body{
     margin: 20px;
 }
 
-#remaining{
-  display: inline;
+#status {
+    display: inline;
 }
 
-#editTime{
-  display:none;
+#editTime {
+    display: none;
 }
 
-#editButton{
-  display:inline;
+#editButton {
+    display: inline;
 }
 
-#timeRemain{
-  /*display:inline;*/
-  text-align:center;
+#timeRemain {
+    text-align: center;
 }
 
 .combobox-container {
