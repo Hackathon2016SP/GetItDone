@@ -1,56 +1,56 @@
-body{
-   width:550px;
-   height:600px;
-   color:#3B3B3B !important;
-   /*background-color: #e7e7e7 !important;*/
+body {
+    width: 550px;
+    height: 600px;
+    color: #3B3B3B !important;
 }
+
 #title {
     padding-top: 15px;
     text-align: right;
 }
-#chart-div{
-  text-align: center; 
-  width:550;
-  height:500;
+
+#chart-div {
+    text-align: center;
+    width: 550px;
+    height: 500px;
 }
 
 #duration {
-  width: 75px;
-  text-align: center;
+    width: 75px;
+    text-align: center;
 }
 
-.pie-legend{
-  list-style-type: none;
+.pie-legend {
+    list-style-type: none;
 }
 
-#settings{
-  text-align: center;
+#settings {
+    text-align: center;
 }
 
 #dropdown {
-  text-align: center;
-  margin-bottom: 10px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .margin20 {
-  margin: 20px;
+    margin: 20px;
 }
 
-#status{
-  display: inline;
+#status {
+    display: inline;
 }
 
-#editTime{
-  display:none;
+#editTime {
+    display: none;
 }
 
-#editButton{
-  display:inline;
+#editButton {
+    display: inline;
 }
 
-#timeRemain{
-  /*display:inline;*/
-  text-align:center;
+#timeRemain {
+    text-align: center;
 }
 
 .combobox-container {
