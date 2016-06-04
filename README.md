@@ -8,4 +8,13 @@ Currently the data is stored within local storage, to view this data, have devel
 chrome.storage.local.get(function(result){console.log(result)})
 ```
 
+### Developer Chrome Extension Installation Instructions
+1. Clone repository
+2. Chrome Settings -> More Tools -> Extensions
+3. Toggle On Developer Mode
+4. Click Load unpacked extension
+5. Find repository that was cloned to. 
+6. Select the folder within that cloned repository.
+7. You're ready!
+
 Logo from http://cliparts.co/clipart/2716554.
