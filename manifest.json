@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Get It Started",
-  "description": "This extension gets shit done.",
+  "name": "Get It Done",
+  "description": "This extension is a productivity tracker that helps you get it done.",
   "version": "1.0",
   "permissions": [
     "activeTab",
@@ -18,7 +18,7 @@
   "browser_action": {
     "default_icon": "logo.png",
     "default_popup": "popup.html",
-    "default_title": "Get It Started"
+    "default_title": "Get It Done"
   },
   "background": {
     "scripts": ["background.js"],
