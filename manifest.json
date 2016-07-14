@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Get It Done",
+  "name": "Get It Started",
   "description": "This extension gets shit done.",
   "version": "1.0",
   "permissions": [
@@ -16,14 +16,14 @@
     "js": ["libs/jquery.js", "content.js"]
   }],
   "browser_action": {
-    "default_icon": "clock.png",
+    "default_icon": "logo.png",
     "default_popup": "popup.html",
-    "default_title": "Get It Done"
+    "default_title": "Get It Started"
   },
   "background": {
     "scripts": ["background.js"],
     "persistent": true
   },
-  "web_accessible_resources": ["poop.png","hello.wav"],
+  "web_accessible_resources": ["poop.png"],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
