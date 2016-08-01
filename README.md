@@ -9,12 +9,15 @@ chrome.storage.local.get(function(result){console.log(result)})
 ```
 
 ### Developer Chrome Extension Installation Instructions
-1. Clone repository
-2. Chrome Settings -> More Tools -> Extensions
-3. Toggle On Developer Mode
-4. Click Load unpacked extension
-5. Find repository that was cloned to. 
-6. Select the folder within that cloned repository.
-7. You're ready!
+1. Fork the repository repository
+2. Clone the fork
+3. Chrome Settings -> More Tools -> Extensions
+4. Toggle On Developer Mode
+5. Click Load unpacked extension
+6. Find repository that was cloned to
+7. Select the folder within that cloned repository
+8. You're ready!
+9. Making changes and fixes
+10. Submit a pull-request
 
 Logo from http://cliparts.co/clipart/2716554.
